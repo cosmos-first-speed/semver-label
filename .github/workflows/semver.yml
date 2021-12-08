@@ -1,6 +1,9 @@
 name: Push a new tag with Pull Request
 
 on:
+  push:
+    branches:
+      - diagrams
   pull_request:
     types: [closed]
 
@@ -33,3 +36,6 @@ jobs:
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
           message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+      - name: print current version
+        run: |
+          echo ${{ steps.bump-semver.outputs.new_version }}
